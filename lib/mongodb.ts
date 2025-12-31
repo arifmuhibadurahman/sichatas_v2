@@ -5,21 +5,25 @@ if (!uri) {
   throw new Error("Please define MONGODB_URI in .env");
 }
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
-
-// Simpan client di global (agar tidak reconnect di dev)
+// Tambahkan deklarasi global agar tidak error di mode development
 declare global {
-  // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-if (!global._mongoClientPromise) {
-  client = new MongoClient(uri);
-  global._mongoClientPromise = client.connect();
-  console.log("MongoDB client created");
-}
+// Definisikan clientPromise secara langsung
+let clientPromise: Promise<MongoClient>;
 
-clientPromise = global._mongoClientPromise;
+if (process.env.NODE_ENV === "development") {
+  // Dalam mode development, gunakan variabel global agar koneksi tidak bertambah terus saat refresh
+  if (!global._mongoClientPromise) {
+    const client = new MongoClient(uri);
+    global._mongoClientPromise = client.connect();
+  }
+  clientPromise = global._mongoClientPromise;
+} else {
+  // Dalam mode production, buat koneksi baru
+  const client = new MongoClient(uri);
+  clientPromise = client.connect();
+}
 
 export default clientPromise;

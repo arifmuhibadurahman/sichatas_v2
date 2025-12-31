@@ -15,18 +15,18 @@ const MapView = () => {
   });
 
   // Data States
-  const [jawaHealthcareData, setJawaHealthcareData] = useState<any>(null);
-  const [jawaIndustrialData, setJawaIndustrialData] = useState<any>(null);
+  const [jawaHealthcareData, setJawaHealthcareData] = useState<unknown>(null);
+  const [jawaIndustrialData, setJawaIndustrialData] = useState<unknown>(null);
   
   // UI States
   const [showHC, setShowHC] = useState(true); // Toggle Layer
   const [showInd, setShowInd] = useState(true);
-  const [hoverInfo, setHoverInfo] = useState<any>(null); // Popup/Info
+  const [hoverInfo, setHoverInfo] = useState<unknown>(null); // Popup/Info
   const [searchQuery, setSearchQuery] = useState("");
-  const [bufferList, setBufferList] = useState<any[]>([]); // Fitur Analisis
+  const [bufferList, setBufferList] = useState<unknown[]>([]); // Fitur Analisis
   
   const [isLoading, setIsLoading] = useState(true);
-  const mapRef = useRef<any>(null);
+  const mapRef = useRef<unknown>(null);
   const hasFetched = useRef(false);
 
   const fetchAllData = useCallback(async () => {
@@ -40,7 +40,7 @@ const MapView = () => {
       const hcRaw = await hcRes.json();
       const indRaw = await indRes.json();
 
-      const extractFeatures = (raw: any) => {
+      const extractFeatures = (raw: unknown) => {
         if (!raw) return [];
         const doc = Array.isArray(raw) ? raw[0] : raw;
         return doc?.features || [];
@@ -74,7 +74,7 @@ const MapView = () => {
 
     // FITUR: Pencarian Sederhana (Filter Client-side)
     const handleSearch = () => {
-      const feature = jawaHealthcareData?.features.find((f: any) => 
+      const feature = jawaHealthcareData?.features.find((f: unknown) => 
         f.properties?.name?.toLowerCase().includes(searchQuery.toLowerCase())
       );
       if (feature && feature.geometry.type === "Point") {
@@ -88,7 +88,7 @@ const MapView = () => {
     };
 
     // Fungsi Klik Peta untuk menambah Buffer (Maksimal 5)
-    const onMapClick = (event: any) => {
+    const onMapClick = (event: unknown) => {
       if (bufferList.length >= 5) {
         alert("Maksimal 5 radius. Hapus salah satu untuk menambah baru.");
         return;

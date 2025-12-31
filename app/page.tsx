@@ -172,7 +172,7 @@ export default function Home() {
                     <div className="mt-8 pt-6 border-t border-white/5">
                       <div className="flex items-center gap-4 text-gray-400 italic text-sm">
                         <Map size={24} className="text-blue-500 opacity-50" />
-                        "Sistem mengoptimalkan 45+ parameter kelayakan lahan secara real-time."
+                        Sistem mengoptimalkan 45+ parameter kelayakan lahan secara real-time.
                       </div>
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default function Home() {
 }
 
 // Sub-component for Cleanliness
-function ValueCard({ icon, title, desc }: { icon: any, title: string, desc: string }) {
+function ValueCard({ icon, title, desc }: { icon: unknown, title: string, desc: string }) {
   return (
     <motion.div 
       whileHover={{ y: -10 }}
