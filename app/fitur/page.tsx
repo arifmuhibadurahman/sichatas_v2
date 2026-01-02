@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 
 
+
 // Memuat font Ubuntu dari Google Fonts
 const ubuntu = Ubuntu({ 
   subsets: ['latin'], 
